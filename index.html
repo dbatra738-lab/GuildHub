@@ -1,0 +1,829 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f7f4">
+  <title>SkillCircle | Neighbourhood Skill Exchange</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet"
+    href="https://cdn.maptiler.com/maptiler-sdk-js/v4.2.0/maptiler-sdk.css">
+
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/v4.2.0/maptiler-sdk.umd.min.js"></script>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="topbar">
+
+    <button class="menu-toggle" id="menuToggle"
+      type="button" aria-label="Open navigation menu"
+      aria-expanded="false" aria-controls="sideMenu">☰</button>
+
+    <a class="brand" href="#">
+      <span class="brand-icon">S</span>
+      <span>
+        skill<span class="brand-accent">circle</span>
+        <small>NEIGHBOURHOOD EXCHANGE</small>
+      </span>
+    </a>
+
+    <div class="header-actions">
+
+      <button class="btn btn-secondary header-login"
+        id="loginOpenBtn" type="button">
+        Log in
+      </button>
+
+      <button class="btn btn-primary header-signup"
+        id="signupOpenBtn" type="button">
+        Join SkillCircle
+      </button>
+
+      <div class="account-menu" id="accountMenu" hidden>
+        <button type="button" id="accountButton"
+          class="account-button">
+          <span class="account-avatar" id="accountAvatar">U</span>
+          <span id="accountName">My account</span>
+          <span>⌄</span>
+        </button>
+
+        <div class="account-dropdown" id="accountDropdown" hidden>
+          <span class="account-email" id="accountEmail"></span>
+          <button type="button" id="logoutBtn">Log out</button>
+        </div>
+      </div>
+
+      <label class="theme-switch" title="Switch colour theme">
+        <span id="themeIcon">☀</span>
+        <input id="themeToggle" type="checkbox"
+          aria-label="Toggle dark mode">
+        <span class="switch-track">
+          <span class="switch-knob"></span>
+        </span>
+        <span>Dark mode</span>
+      </label>
+
+    </div>
+  </header>
+
+
+  <!-- SIDEBAR BACKDROP -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- SIDE NAVIGATION -->
+  <aside class="side-menu" id="sideMenu"
+    aria-label="Main navigation">
+
+    <div class="sidebar-header">
+      <div>
+        <span class="sidebar-eyebrow">SKILLCIRCLE</span>
+        <h2>Navigation</h2>
+      </div>
+
+      <button type="button" class="sidebar-close"
+        id="sidebarClose" aria-label="Close navigation menu">×</button>
+    </div>
+
+    <div class="sidebar-links">
+
+      <a href="#discover" class="sidebar-link">
+        <span class="sidebar-icon">⌕</span>
+        <span>
+          <strong>Discover</strong>
+          <small>Find local professionals</small>
+        </span>
+        <span class="sidebar-arrow">›</span>
+      </a>
+
+      <a href="#register" class="sidebar-link">
+        <span class="sidebar-icon">＋</span>
+        <span>
+          <strong>List a Skill</strong>
+          <small>Register your services</small>
+        </span>
+        <span class="sidebar-arrow">›</span>
+      </a>
+
+      <a href="#reviews" class="sidebar-link">
+        <span class="sidebar-icon">☆</span>
+        <span>
+          <strong>Reviews</strong>
+          <small>Community feedback</small>
+        </span>
+        <span class="sidebar-arrow">›</span>
+      </a>
+
+      <a href="#messages" class="sidebar-link" id="sidebarMessages">
+        <span class="sidebar-icon">▤</span>
+        <span>
+          <strong>Messages</strong>
+          <small>Private conversations</small>
+        </span>
+        <span class="sidebar-arrow">›</span>
+      </a>
+
+    </div>
+
+    <div class="sidebar-footer">
+      <span class="online-dot"></span>
+      <span>Stronger neighbourhoods, together.</span>
+    </div>
+  </aside>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <span class="eyebrow">GOOD SKILLS. CLOSER THAN YOU THINK.</span>
+
+        <h1>Your neighbourhood<br>is full of <em>talent.</em></h1>
+
+        <p>
+          Find trusted local professionals, get everyday jobs done,
+          and help your community thrive.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#discover">
+            Find a professional ↗
+          </a>
+          <a class="btn btn-secondary" href="#register">
+            Offer your skills
+          </a>
+        </div>
+
+        <div class="hero-note">
+          <span class="online-dot"></span>
+          A local-first community built on skills and trust
+        </div>
+      </div>
+
+      <div class="hero-art" aria-label="Community skills illustration">
+        <div class="art-circle"></div>
+
+        <div class="art-card art-card-one">
+          <span>🔧</span>
+          <div>
+            <b>Fix it locally</b>
+            <small>Repairs & maintenance</small>
+          </div>
+        </div>
+
+        <div class="art-card art-card-two">
+          <span>⚡</span>
+          <div>
+            <b>Find your expert</b>
+            <small>Electricians & more</small>
+          </div>
+        </div>
+
+        <div class="art-center">SC</div>
+        <span class="art-spark spark-one">✳</span>
+        <span class="art-spark spark-two">✳</span>
+      </div>
+    </section>
+
+
+    <!-- STATISTICS -->
+    <section class="stats">
+      <div>
+        <strong id="workerCount">0</strong>
+        <span>Registered professionals</span>
+      </div>
+      <div>
+        <strong id="skillCount">0</strong>
+        <span>Types of skills</span>
+      </div>
+      <div>
+        <strong id="reviewCount">0</strong>
+        <span>Client reviews</span>
+      </div>
+    </section>
+
+
+    <!-- DISCOVER -->
+    <section class="section" id="discover">
+
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">THE LOCAL DIRECTORY</span>
+          <h2>Find the right person.</h2>
+          <p>Explore registered professionals and their service areas.</p>
+        </div>
+
+        <button class="btn btn-secondary" id="refreshBtn" type="button">
+          ↻ Refresh listings
+        </button>
+      </div>
+
+      <div class="search-panel">
+
+        <label class="search-field">
+          <span>⌕</span>
+          <input id="searchInput" type="search"
+            placeholder="Search plumber, carpenter, electrician…">
+        </label>
+
+        <select id="skillFilter" aria-label="Filter by skill">
+          <option value="">All skills</option>
+          <option>Carpenter</option>
+          <option>Plumber</option>
+          <option>Electrician</option>
+          <option>Painter</option>
+          <option>Mechanic</option>
+          <option>Appliance Repair</option>
+          <option>Gardener</option>
+          <option>Mason</option>
+          <option>Cleaner</option>
+          <option>Other</option>
+        </select>
+
+        <select id="sortFilter" aria-label="Sort professionals">
+          <option value="rating">Highest rated</option>
+          <option value="name">Name A–Z</option>
+        </select>
+      </div>
+
+      <div class="directory-layout">
+
+        <div class="map-column">
+          <div class="map-heading">
+            <div>
+              <strong>Community map</strong>
+              <span>All listed professionals</span>
+            </div>
+            <span class="map-key"><i></i> Professional</span>
+          </div>
+
+          <div id="map" role="application"
+            aria-label="Map of registered professionals"></div>
+
+          <p class="privacy-note">
+            Map pins show approximate service locations, not exact home addresses.
+          </p>
+        </div>
+
+        <div class="results-column">
+          <div class="results-heading">
+            <strong>Local professionals</strong>
+            <span id="resultsCount">Loading…</span>
+          </div>
+
+          <div id="workerList" class="worker-list">
+            <div class="empty-state">Loading community listings…</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- PROFESSIONAL REGISTRATION -->
+    <section class="section register-section" id="register">
+
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">SHARE WHAT YOU DO</span>
+          <h2>List your skill.</h2>
+          <p>Register your service so people in your area can find you.</p>
+        </div>
+      </div>
+
+      <form id="registerForm" class="form-card">
+
+        <div class="form-grid">
+
+          <label>Full name
+            <input name="name" required maxlength="80"
+              autocomplete="name" placeholder="Your name">
+          </label>
+
+          <label>Skill / profession
+            <select name="skill" required>
+              <option value="">Select a skill</option>
+              <option>Carpenter</option>
+              <option>Plumber</option>
+              <option>Electrician</option>
+              <option>Painter</option>
+              <option>Mechanic</option>
+              <option>Appliance Repair</option>
+              <option>Gardener</option>
+              <option>Mason</option>
+              <option>Cleaner</option>
+              <option>Welder</option>
+              <option>AC Technician</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>Contact email
+            <input name="email" type="email" required maxlength="150"
+              autocomplete="email" placeholder="you@example.com">
+          </label>
+
+          <label>Contact number
+            <input name="phone" type="tel" required maxlength="25"
+              autocomplete="tel" placeholder="Your business contact number">
+          </label>
+
+          <div>
+            <label for="location">Service area / locality</label>
+            <input type="text" id="location" name="area"
+              required maxlength="150" autocomplete="street-address"
+              placeholder="e.g. Model Town, Ludhiana">
+
+            <button type="button" id="detectLocationBtn">
+              📍 Detect my current location
+            </button>
+
+            <small id="locationStatus" aria-live="polite"></small>
+          </div>
+
+          <label>Experience
+            <select name="experience" required>
+              <option value="">Select experience</option>
+              <option>Less than 1 year</option>
+              <option>1–3 years</option>
+              <option>4–7 years</option>
+              <option>8–15 years</option>
+              <option>15+ years</option>
+            </select>
+          </label>
+
+          <label>Typical service charge (₹)
+            <input name="price" type="number" min="0" max="1000000"
+              placeholder="Optional">
+          </label>
+
+          <label class="full-width">About your service
+            <textarea name="description" rows="4" maxlength="700"
+              placeholder="Describe your services, availability and specialities…"></textarea>
+          </label>
+        </div>
+
+        <label class="consent-row">
+          <input type="checkbox" name="consent" required>
+          <span>
+            I agree to publish my name, skill, service area and the contact
+            details entered above. I understand the approximate location will
+            be shown on the public map.
+          </span>
+        </label>
+
+        <button class="btn btn-primary" type="submit">
+          Register my skill ↗
+        </button>
+
+        <p id="registerMessage" class="form-message"
+          aria-live="polite"></p>
+      </form>
+    </section>
+
+
+    <!-- REVIEWS -->
+    <section class="section reviews-section" id="reviews">
+
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">COMMUNITY TRUST</span>
+          <h2>Share your experience.</h2>
+          <p>Only clients should review professionals they have hired.</p>
+        </div>
+      </div>
+
+      <form id="reviewForm" class="form-card">
+
+        <div class="form-grid">
+
+          <label>Professional hired
+            <select name="workerId" id="reviewWorker" required>
+              <option value="">Select a professional</option>
+            </select>
+          </label>
+
+          <label>Your email
+            <input name="clientEmail" type="email" required maxlength="150"
+              placeholder="Email used for the booking">
+          </label>
+
+          <label>Booking / job reference
+            <input name="jobReference" required maxlength="100"
+              placeholder="Reference provided for the completed job">
+          </label>
+
+          <label>Your rating
+            <select name="rating" required>
+              <option value="">Choose a rating</option>
+              <option value="5">★★★★★ — Excellent</option>
+              <option value="4">★★★★☆ — Very good</option>
+              <option value="3">★★★☆☆ — Good</option>
+              <option value="2">★★☆☆☆ — Fair</option>
+              <option value="1">★☆☆☆☆ — Poor</option>
+            </select>
+          </label>
+
+          <label class="full-width">Your review
+            <textarea name="comment" rows="4" required maxlength="1000"
+              placeholder="Describe the service you received…"></textarea>
+          </label>
+        </div>
+
+        <button class="btn btn-primary" type="submit">
+          Submit client review ↗
+        </button>
+
+        <p id="reviewMessage" class="form-message"
+          aria-live="polite"></p>
+      </form>
+
+      <div class="reviews-heading">
+        <h3>Recent client feedback</h3>
+        <span id="publicReviewCount"></span>
+      </div>
+
+      <div id="reviewList" class="review-list">
+        <div class="empty-state">Loading reviews…</div>
+      </div>
+    </section>
+
+
+    <!-- MESSAGES DASHBOARD -->
+    <section class="section messages-section" id="messages" hidden>
+
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">YOUR SKILLCIRCLE INBOX</span>
+          <h2>Messages.</h2>
+          <p>Connect with clients and local professionals.</p>
+        </div>
+      </div>
+
+      <div class="chat-shell">
+
+        <!-- CONVERSATION SIDEBAR -->
+        <aside class="chat-sidebar">
+
+          <div class="chat-sidebar-heading">
+            <strong>Conversations</strong>
+            <span id="conversationCount">0</span>
+          </div>
+
+          <div id="conversationList" class="conversation-list">
+            <div class="empty-state">
+              Your conversations will appear here.
+            </div>
+          </div>
+
+          <!-- PROFESSIONAL GROUPS -->
+          <div id="skillGroupsPanel" class="skill-groups-panel" hidden>
+            <div class="chat-sidebar-heading">
+              <strong>Professional groups</strong>
+            </div>
+
+            <div id="skillGroupList" class="skill-group-list"></div>
+          </div>
+
+        </aside>
+
+
+        <!-- CHAT MAIN AREA -->
+        <div class="chat-main">
+
+          <div class="chat-empty" id="chatEmpty">
+            <div class="chat-empty-icon">✉</div>
+            <h3>Your conversations start here.</h3>
+            <p>
+              Select a conversation to view messages, or discover a
+              professional and start a conversation.
+            </p>
+            <a href="#discover" class="btn btn-primary">
+              Find professionals
+            </a>
+          </div>
+
+
+          <!-- PRIVATE CHAT -->
+          <div class="chat-window" id="privateChat" hidden>
+
+            <div class="chat-header">
+              <button type="button" id="chatBackBtn"
+                class="chat-back-btn" aria-label="Back to conversations">
+                ←
+              </button>
+
+              <div class="chat-person-avatar" id="chatPersonAvatar">P</div>
+
+              <div class="chat-person-info">
+                <strong id="chatPersonName">Conversation</strong>
+                <small id="chatPersonSkill">SkillCircle member</small>
+              </div>
+
+              <span class="chat-status">Private chat</span>
+            </div>
+
+            <div class="chat-messages" id="privateMessages"
+              aria-live="polite">
+              <div class="empty-state">Loading messages…</div>
+            </div>
+
+            <form class="chat-composer" id="privateMessageForm">
+              <input type="text" id="privateMessageInput"
+                maxlength="2000" autocomplete="off"
+                placeholder="Write a message…" required>
+
+              <button type="submit" class="chat-send-btn"
+                aria-label="Send message">➤</button>
+            </form>
+          </div>
+
+
+          <!-- PROFESSIONAL GROUP CHAT -->
+          <div class="chat-window" id="groupChat" hidden>
+
+            <div class="chat-header">
+              <button type="button" id="groupBackBtn"
+                class="chat-back-btn" aria-label="Back to conversations">
+                ←
+              </button>
+
+              <div class="chat-person-avatar">👥</div>
+
+              <div class="chat-person-info">
+                <strong id="groupChatName">Skill group</strong>
+                <small id="groupMemberCount">Professional community</small>
+              </div>
+
+              <span class="chat-status">Group chat</span>
+            </div>
+
+            <div class="chat-messages" id="groupMessages"
+              aria-live="polite">
+              <div class="empty-state">Select a skill group to begin.</div>
+            </div>
+
+            <form class="chat-composer" id="groupMessageForm">
+              <input type="text" id="groupMessageInput"
+                maxlength="2000" autocomplete="off"
+                placeholder="Message your professional community…" required>
+
+              <button type="submit" class="chat-send-btn"
+                aria-label="Send group message">➤</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+      <p class="chat-disclaimer">
+        Please avoid sharing passwords, financial details or sensitive
+        personal information in messages.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  
+<!-- AUTHENTICATION MODAL -->
+<div class="auth-overlay" id="authOverlay" hidden>
+
+  <div class="auth-modal" role="dialog"
+    aria-modal="true" aria-labelledby="authTitle">
+
+    <button type="button" class="auth-close"
+      id="authCloseBtn" aria-label="Close login">×</button>
+
+    <div class="auth-brand">
+      <span class="brand-icon">S</span>
+      <span>skill<span class="brand-accent">circle</span></span>
+    </div>
+
+    <div id="authFormPanel">
+
+      <span class="eyebrow">WELCOME TO THE COMMUNITY</span>
+
+      <h2 id="authTitle">Your skills. Your neighbourhood.</h2>
+
+      <p class="auth-description">
+        Log in or create an account to connect with your community.
+      </p>
+
+      <!-- LOGIN / SIGNUP TABS -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active"
+          id="loginTab">
+          Log in
+        </button>
+
+        <button type="button" class="auth-tab"
+          id="signupTab">
+          Create account
+        </button>
+      </div>
+
+      <!-- AUTHENTICATION FORM -->
+      <form id="authForm">
+
+        <!-- FULL NAME: SIGNUP ONLY -->
+        <label class="auth-field" id="authNameField" hidden>
+          Full name
+
+          <input
+            type="text"
+            id="authName"
+            name="name"
+            autocomplete="name"
+            maxlength="80"
+            placeholder="Your full name">
+        </label>
+
+        <!-- EMAIL -->
+        <label class="auth-field">
+          Email address
+
+          <input
+            type="email"
+            id="authEmail"
+            name="email"
+            autocomplete="email"
+            maxlength="150"
+            placeholder="you@example.com"
+            required>
+        </label>
+
+        <!-- PHONE NUMBER: SIGNUP ONLY -->
+        <label class="auth-field" id="authPhoneField" hidden>
+          Phone number
+
+          <input
+            type="tel"
+            id="authPhone"
+            name="phone"
+            autocomplete="tel"
+            maxlength="25"
+            placeholder="Your phone number">
+        </label>
+
+        <!-- ACCOUNT TYPE: SIGNUP ONLY -->
+        <label class="auth-field" id="authRoleField" hidden>
+          Account type
+
+          <select id="authRole" name="role" required>
+            <option value="client">
+              Client — I need services
+            </option>
+
+            <option value="professional">
+              Professional — I offer services
+            </option>
+          </select>
+        </label>
+
+        <!-- PROFESSIONAL ACCOUNT INFORMATION -->
+        <p class="auth-hint" id="professionalAuthHint" hidden>
+          To create a professional account, first list your skill
+          using the professional registration form. Use the same
+          email address.
+        </p>
+
+        <!-- SUBMIT BUTTON -->
+        <button
+          type="submit"
+          class="btn btn-primary auth-submit"
+          id="authSubmitBtn">
+          Continue with email →
+        </button>
+
+        <p class="form-message" id="authMessage"
+          aria-live="polite"></p>
+
+      </form>
+
+      <p class="auth-legal">
+        By continuing, you agree to use SkillCircle respectfully
+        and responsibly.
+      </p>
+
+    </div>
+
+    <!-- OTP VERIFICATION PANEL -->
+    <div id="otpPanel" hidden>
+
+      <span class="eyebrow">EMAIL VERIFICATION</span>
+
+      <h2>Verify your email</h2>
+
+      <p class="auth-description">
+        Enter the verification code sent to your email address.
+      </p>
+
+      <form id="otpForm">
+
+        <label class="auth-field">
+          Verification code
+
+          <input
+            type="text"
+            id="otpCode"
+            name="otp"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            maxlength="6"
+            placeholder="Enter 6-digit code"
+            required>
+        </label>
+
+        <button type="submit"
+          class="btn btn-primary auth-submit">
+          Verify and continue →
+        </button>
+
+        <p class="form-message" id="otpMessage"
+          aria-live="polite"></p>
+
+        <button type="button" class="auth-tab"
+          id="backToAuthBtn">
+          ← Back
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+      <!-- OTP VERIFICATION -->
+      <div id="otpPanel" hidden>
+
+        <span class="eyebrow">EMAIL VERIFICATION</span>
+        <h2>Check your inbox.</h2>
+
+        <p class="auth-description">
+          We've sent a six-digit verification code to
+          <strong id="otpEmailDisplay"></strong>.
+        </p>
+
+        <form id="otpForm">
+
+          <label class="auth-field">
+            Verification code
+            <input type="text" id="otpCode"
+              inputmode="numeric" autocomplete="one-time-code"
+              maxlength="6" pattern="[0-9]{6}"
+              placeholder="000000" required>
+          </label>
+
+          <button type="submit" class="btn btn-primary auth-submit"
+            id="verifyOtpBtn">
+            Verify and log in →
+          </button>
+
+          <p class="form-message" id="otpMessage"
+            aria-live="polite"></p>
+        </form>
+
+        <button type="button" class="auth-text-button"
+          id="backToAuthBtn">
+          ← Back to login
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <a class="brand footer-brand" href="#">SkillCircle</a>
+    <p>Stronger neighbourhoods start with sharing skills.</p>
+    <span>Community-powered · Local-first</span>
+  </footer>
+
+
+  <!-- TOAST -->
+  <div id="toast" class="toast" role="status"
+    aria-live="polite"></div>
+
+
+  <!-- CONFIGURATION -->
+  <script>
+    window.SKILLCIRCLE_CONFIG = {
+      MAPTILER_API_KEY: "hF4JXG71gFyrrUMuzxJz",
+      GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxz5rOfHFkSEhdDGkJQig9nZkXaupdTF7wFkRxPuxTeyNMC5JRDvoWJVv817mHLwULw-g/exec"
+    };
+  </script>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
